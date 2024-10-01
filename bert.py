@@ -14,7 +14,6 @@ def format(json_file):
     a_list = a_dict.get('transcriptions', [])
     sentences = []
     for item in a_list:
-        # Split the text into sentences using regex
         text_sentences = re.split(r'(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s', item['transcription'])
         sentences.extend(text_sentences)
     encouragement_phrases = [
@@ -59,50 +58,42 @@ def clean_bert(reference_file, input_list):
     '''
     Cleans up the bertalign output to better represent RSR
     '''
-    # Read the reference file into a set for quick lookup
     with open(reference_file, 'r') as ref_file:
         reference_sentences = {line.strip() for line in ref_file}
 
-    # Helper function to split sentences
     def split_sentences(text):
         import re
         sentence_endings = re.compile(r'(?<=[.!?]) +')
         return sentence_endings.split(text.strip())
 
-    # Process the input list
     cleaned_list = []
     i = 0
     while i < len(input_list):
         item = input_list[i].strip()
         
-        # Skip newline-only elements
         if not item:
             i += 1
             continue
 
-        # Split the item into sentences
         sentences = split_sentences(item)
         if len(sentences) == 1:
             cleaned_list.append(item)
             i+=1
             continue
 
-        # Check if all sentences are in the reference file
         if all(sentence in reference_sentences for sentence in sentences):
-            # Split and reinsert next element between the sentences
             if len(sentences) > 1:
                 next_item = input_list[i + 1].strip() if (i + 1) < len(input_list) else ''
                 for j, sentence in enumerate(sentences):
                     cleaned_list.append(sentence)
                     if j == 0 and next_item:
                         cleaned_list.append(next_item)
-                i += 2  # Skip the next element
+                i += 2 
             else:
                 cleaned_list.append(sentences[0])
                 i += 1
                 
         else:
-            # Keep the longest sentence if not all sentences are in the reference
             longest_sentence = max(sentences, key=len)
             cleaned_list.append(longest_sentence)
             i += 1
@@ -129,30 +120,22 @@ def find_lines_and_next(file1, a_list):
     '''
     More processing in preperation for final output
     '''
-    # Read lines from the first file and store them in a set
     with open(file1, 'r') as f1:
         lines_to_find = set(line.strip() for line in f1)
 
-    # Create a set to keep track of found lines
     found_lines = set()
-
-    # Read the second file and process the lines
     lines = a_list
-
-    # List to store the output lines
     output_lines = []
 
-    # Iterate through the lines and find matches with the next line
     for i, line in enumerate(lines):
         stripped_line = line.strip()
         if stripped_line in lines_to_find and stripped_line not in found_lines:
-            found_lines.add(stripped_line)  # Mark the line as found
+            found_lines.add(stripped_line)  
             output_lines.append(stripped_line)
-            if i + 1 < len(lines):  # Check if there is a next line
-                output_lines.append(lines[i + 1].strip())  # Append the next line
+            if i + 1 < len(lines):  
+                output_lines.append(lines[i + 1].strip())  
 
-    # Return output lines 
-    return output_lines
+        return output_lines
 
 def transcribe(filename):
     '''
