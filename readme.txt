@@ -1,4 +1,4 @@
-THis version is depreciated!
+This version is depreciated!
 Please use the newest version which is much better documented and contains some better ease of use. https://github.com/pyraxal/AutoRsr-NoBert?tab=readme-ov-file#project-structure
 
 Hello!
