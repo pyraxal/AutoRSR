@@ -1,8 +1,11 @@
+THis version is depreciated!
+Please use the newest version which is much better documented and contains some better ease of use. https://github.com/pyraxal/AutoRsr-NoBert?tab=readme-ov-file#project-structure
+
 Hello!
 
 This is AutoRSR, a project written in order to leverage AI to automatically score for Redmond Sentence Recall (RSR). The goal of this is to implement a screening protocol that will eventually automate the screening of children.  
 
-You can check out a working demo that implements this code at: https://aipipelines.xlabub.com/. If you want to run the code yourself, please follow the instructions below. 
+You can check out a working demo that implements this code at: https://aipipelines.xlabub.com/. If you want to run the code yourself, please follow the instructions below.
 
 -------------------------------------------------------------------------------------------
 
