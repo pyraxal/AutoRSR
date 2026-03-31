@@ -1,5 +1,5 @@
-This version is depreciated!
-Please use the newest version which is much better documented and contains some better ease of use. https://github.com/pyraxal/AutoRsr-NoBert?tab=readme-ov-file#project-structure
+This version uses Bert-Align, which does require a lot processing power. 
+Try out https://github.com/pyraxal/AutoRsr-NoBert, which performs the same task, without Bert-Align, and with much better documentation.  
 
 Hello!
 
